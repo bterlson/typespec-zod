@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@alloy-js/cli": "^0.10.0",
-    "@rollup/plugin-babel": "^6.0.4",
+    "@alloy-js/rollup-plugin": "^0.1.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"
   },
