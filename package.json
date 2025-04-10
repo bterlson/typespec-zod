@@ -11,11 +11,8 @@
   },
   "main": "./dist/src/index.js",
   "scripts": {
-    "build-src": "babel src -d dist/src --extensions '.ts,.tsx'",
-    "build": "tsc -p tsconfig.build.json && npm run build-src",
-    "watch-src": "babel src -d dist/src --extensions '.ts,.tsx' --watch",
-    "watch-tsc": "tsc -p tsconfig.build.json --watch",
-    "watch": "concurrently --kill-others \"npm run watch-tsc\" \"npm run watch-src\"",
+    "build": "alloy build",
+    "watch": "alloy build --watch",
     "test": "vitest run",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
@@ -37,12 +34,8 @@
     "@typespec/emitter-framework": "^0.5.0"
   },
   "devDependencies": {
-    "@alloy-js/babel-preset": "^0.2.0",
-    "@babel/cli": "^7.24.8",
-    "@babel/core": "^7.24.9",
-    "@babel/preset-typescript": "^7.26.0",
+    "@alloy-js/cli": "^0.10.0",
     "@rollup/plugin-babel": "^6.0.4",
-    "concurrently": "^8.2.2",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"
   },
