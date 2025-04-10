@@ -41,7 +41,7 @@ export function typeBuilder(type: Type): Children[] {
       components.push(
         ...(type.value
           ? [literalBuilder($.literal.create(type.value))]
-          : [literalBuilder($.literal.create(type.name))])
+          : [literalBuilder($.literal.create(type.name))]),
       );
       break;
     case "Tuple":

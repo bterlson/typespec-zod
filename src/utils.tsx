@@ -113,7 +113,7 @@ export function createCycleSets(types: Type[]): Type[][] {
 
       case "Union":
         return [...type.variants.values()].map((v) =>
-          v.kind === "UnionVariant" ? v.type : v
+          v.kind === "UnionVariant" ? v.type : v,
         );
       case "UnionVariant":
         return [type.type];

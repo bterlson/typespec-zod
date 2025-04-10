@@ -61,13 +61,13 @@ export const petBase = z.object({
 export const dog = z.petBase.merge(
   z.object({
     walksPerDay: z.number().int().safe(),
-  })
+  }),
 );
 
 export const cat = z.petBase.merge(
   z.object({
     belongingsShredded: z.bigint().nonnegative().lte(18446744073709551615),
-  })
+  }),
 );
 
 export const pet = z.discriminatedUnion("kind", [
@@ -105,7 +105,7 @@ export async function $onEmit(context: EmitContext) {
         </For>
       </SourceFile>
     </Output>,
-    context.emitterOutputDir
+    context.emitterOutputDir,
   );
 }
 ```

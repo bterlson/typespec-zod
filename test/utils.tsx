@@ -19,7 +19,7 @@ export function expectRender(children: Children, expected: string) {
 
   const output = render(template);
   expect(
-    (output.contents[0].contents as string).split(/\n/).slice(2).join("\n")
+    (output.contents[0].contents as string).split(/\n/).slice(2).join("\n"),
   ).toBe(expected);
 }
 
@@ -42,7 +42,7 @@ export async function createTestRunner() {
 
 export async function createEmitterTestRunner(
   emitterOptions?: {},
-  includeHttp = false
+  includeHttp = false,
 ) {
   const host = await createTestHost(includeHttp);
 

@@ -31,7 +31,9 @@ export function TSValueExpression(props: TSValueExpressionProps) {
       if (props.value.value.name === "fromISO") {
         return <TSValueExpression value={props.value.value.args[0]} />;
       } else {
-        throw new Error("Unsupported scalar constructor: " + props.value.value.name);
+        throw new Error(
+          "Unsupported scalar constructor: " + props.value.value.name,
+        );
       }
     default:
       throw new Error("Unsupported value kind: " + props.value.valueKind);

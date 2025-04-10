@@ -18,7 +18,7 @@ it("works with union expressions", async () => {
       z.object({
         prop: z.union([z.literal("hi"), z.literal("ho"), z.literal("ha")]),
       })
-    `
+    `,
   );
 });
 
@@ -50,7 +50,7 @@ it("works with discriminated unions with envelope", async () => {
           })
         ]
       )
-    `
+    `,
   );
 });
 
@@ -80,7 +80,7 @@ it("works with discriminated unions without envelope", async () => {
           })
         ]
       )
-    `
+    `,
   );
 });
 
@@ -102,7 +102,7 @@ it("works with non-discriminated unions", async () => {
         }),
         z.literal(true)
       ])
-    `
+    `,
   );
 });
 

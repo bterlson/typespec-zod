@@ -1,5 +1,12 @@
 import { Children } from "@alloy-js/core/jsx-runtime";
-import { getFormat, getPattern, Model, ModelProperty, Scalar, Type } from "@typespec/compiler";
+import {
+  getFormat,
+  getPattern,
+  Model,
+  ModelProperty,
+  Scalar,
+  Type,
+} from "@typespec/compiler";
 import { $ } from "@typespec/compiler/experimental/typekit";
 import { call } from "../utils.jsx";
 
@@ -41,8 +48,12 @@ export function numericConstraints(
     max: $.type.maxValue(type),
     maxExclusive: $.type.maxValueExclusive(type),
   };
-  if (decoratorConstraints.min === undefined && decoratorConstraints.minExclusive === undefined) {
-    intrinsicMin !== undefined && components.push(call("gte", String(intrinsicMin)));
+  if (
+    decoratorConstraints.min === undefined &&
+    decoratorConstraints.minExclusive === undefined
+  ) {
+    intrinsicMin !== undefined &&
+      components.push(call("gte", String(intrinsicMin)));
   } else {
     if (decoratorConstraints.min !== undefined) {
       components.push(call("gte", decoratorConstraints.min));
@@ -53,8 +64,12 @@ export function numericConstraints(
     }
   }
 
-  if (decoratorConstraints.max === undefined && decoratorConstraints.maxExclusive === undefined) {
-    intrinsicMax !== undefined && components.push(call("lte", String(intrinsicMax)));
+  if (
+    decoratorConstraints.max === undefined &&
+    decoratorConstraints.maxExclusive === undefined
+  ) {
+    intrinsicMax !== undefined &&
+      components.push(call("lte", String(intrinsicMax)));
   } else {
     if (decoratorConstraints.max !== undefined) {
       components.push(call("lte", decoratorConstraints.max));

@@ -22,7 +22,7 @@ it("works with basic models", async () => {
         stringProp: z.string(),
         optionalStringProp: z.string().optional(),
       })
-    `
+    `,
   );
 });
 
@@ -45,7 +45,7 @@ it("works with models with basic constraints", async () => {
         stringProp: z.string().max(10),
         numberProp: z.number().gte(10),
       })
-    `
+    `,
   );
 });
 
@@ -63,14 +63,14 @@ it("works with records", async () => {
     <ZodSchema type={Test} />,
     d`
       z.record(z.string(), z.string())
-    `
+    `,
   );
 
   expectRender(
     <ZodSchema type={Test2} />,
     d`
       z.record(z.string(), z.string())
-    `
+    `,
   );
 });
 
@@ -92,7 +92,7 @@ it("works with records with properties", async () => {
         }),
         z.record(z.string(), z.number())
       )
-    `
+    `,
   );
 });
 
@@ -114,7 +114,7 @@ it("works with nested objects", async () => {
           nested: z.literal(true),
         }),
       })
-    `
+    `,
   );
 });
 
@@ -139,7 +139,7 @@ it("works with referencing other schema declarations in members", async () => {
       const Test = z.object({
         prop: mystring.max(2),
       });
-    `
+    `,
   );
 });
 
@@ -169,7 +169,7 @@ it("renders model and property docs", async () => {
             .describe("This is a property. It is also interesting."),
         })
         .describe("This is an awesome model! It does things that are interesting.")
-    `
+    `,
   );
 });
 
@@ -186,7 +186,7 @@ it("works with arrays", async () => {
   expectRender(<ZodSchema type={scalarArray.type} />, "z.array(z.string())");
   expectRender(
     <ZodSchema type={scalarArray2.type} />,
-    "z.array(z.array(z.string()))"
+    "z.array(z.array(z.string()))",
   );
   expectRender(
     <ZodSchema type={modelArray.type} />,
@@ -195,7 +195,7 @@ it("works with arrays", async () => {
         x: z.string(),
         y: z.string(),
       }))
-    `
+    `,
   );
 });
 
@@ -214,7 +214,7 @@ it("works with model properties with array constraints", async () => {
       z.object({
         prop: z.array(z.string()).max(2),
       })
-    `
+    `,
   );
 });
 
@@ -229,7 +229,7 @@ it("works with array declarations", async () => {
     <ZodSchema type={Test} />,
     d`
       z.array(z.string()).max(5)
-    `
+    `,
   );
 });
 
@@ -265,7 +265,7 @@ it("handles references", async () => {
         prop1: z.array(Item).describe("single array"),
         prop2: z.array(z.array(Item)).max(5).describe("nested array"),
       });
-    `
+    `,
   );
 });
 
@@ -301,7 +301,7 @@ it("supports property defaults", async () => {
         plainDate: z.coerce.date().default("2025-01-01"),
         duration: z.string().duration().default("P1Y2M3DT4H5M6S"),
       })
-    `
+    `,
   );
 });
 
@@ -331,7 +331,7 @@ it("supports model extends", async () => {
       const Point3D = Point2D.merge(z.object({
         z: z.number(),
       }))
-    `
+    `,
   );
 });
 
@@ -350,6 +350,6 @@ it.skip("works with circular references", async () => {
       z.object({
         prop: z.lazy(() => Test),
       })
-    `
+    `,
   );
 });

@@ -42,7 +42,7 @@ export async function $onEmit(context: EmitContext) {
         </ay.For>
       </ts.SourceFile>
     </ay.Output>,
-    context.emitterOutputDir
+    context.emitterOutputDir,
   );
 }
 
@@ -73,7 +73,7 @@ function getAllDataTypes(program: Program) {
       union: collectType,
       scalar: collectType,
     },
-    { includeTemplateDeclaration: false }
+    { includeTemplateDeclaration: false },
   );
 
   return types;

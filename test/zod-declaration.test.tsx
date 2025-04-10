@@ -33,7 +33,7 @@ it("allows specifying refkey", async () => {
         id: z.string(),
       });
       foo;
-    `
+    `,
   );
 });
 
@@ -60,6 +60,6 @@ it.skip("allows specifying a refkey dynamically", async () => {
         id: z.string(),
       });
       foo;
-    `
+    `,
   );
 });

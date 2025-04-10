@@ -118,7 +118,7 @@ export function numericBuilder(type: Scalar | ModelProperty): Children[] {
       ...numericConstraints(
         type,
         String(-(1n << 63n)) + "n",
-        String((1n << 63n) - 1n) + "n"
+        String((1n << 63n) - 1n) + "n",
       ),
     ];
   } else if ($.scalar.extendsUint8(type)) {

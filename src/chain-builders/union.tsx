@@ -12,7 +12,7 @@ import { zod } from "../external-packages/zod.js";
 
 export function unionBuilder(type: Union) {
   const discriminated = ignoreDiagnostics(
-    getDiscriminatedUnion($.program, type)
+    getDiscriminatedUnion($.program, type),
   );
 
   if ($.union.isExpression(type) || !discriminated) {
@@ -24,7 +24,7 @@ export function unionBuilder(type: Union) {
           <For each={Array.from(type.variants.values())} comma line>
             {(variant) => <ZodSchema type={variant.type} nested />}
           </For>
-        </ArrayExpression>
+        </ArrayExpression>,
       ),
     ];
   }

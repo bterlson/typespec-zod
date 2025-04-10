@@ -34,6 +34,6 @@ it("works with enums", async () => {
         b: z.literal(1),
         c: z.literal("one"),
       })
-    `
+    `,
   );
 });

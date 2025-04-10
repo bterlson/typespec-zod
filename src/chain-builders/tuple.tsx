@@ -16,7 +16,7 @@ export function tupleBuilder(type: Tuple) {
             return <ZodSchema type={value} nested />;
           }}
         </For>
-      </ArrayExpression>
+      </ArrayExpression>,
     ),
   ];
 }

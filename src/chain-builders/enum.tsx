@@ -21,7 +21,7 @@ export function enumBuilder(en: Enum) {
             );
           }}
         </For>
-      </ArrayExpression>
+      </ArrayExpression>,
     ),
   ];
 }

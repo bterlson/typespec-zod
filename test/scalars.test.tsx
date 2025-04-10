@@ -43,13 +43,13 @@ describe("scalars", () => {
     expectRender(<ZodSchema type={stringProp.type} />, "z.string()");
     expectRender(
       <ZodSchema type={shortStringProp.type} />,
-      "z.string().min(5).max(10)"
+      "z.string().min(5).max(10)",
     );
     expectRender(<ZodSchema type={urlProp.type} />, "z.string().url()");
     expectRender(<ZodSchema type={uuidProp} />, "z.string().uuid()");
     expectRender(
       <ZodSchema type={patternProp} />,
-      "z.string().regex(/[0-9]+/)"
+      "z.string().regex(/[0-9]+/)",
     );
   });
 
@@ -69,19 +69,19 @@ describe("scalars", () => {
     `)) as Record<string, ModelProperty>;
       expectRender(
         <ZodSchema type={int8WithMin} />,
-        "z.number().int().gte(-20).lte(127)"
+        "z.number().int().gte(-20).lte(127)",
       );
       expectRender(
         <ZodSchema type={int8WithMinMax} />,
-        "z.number().int().gte(-20).lte(20)"
+        "z.number().int().gte(-20).lte(20)",
       );
       expectRender(
         <ZodSchema type={int8WithMinExclusive} />,
-        "z.number().int().gt(2).lte(127)"
+        "z.number().int().gt(2).lte(127)",
       );
       expectRender(
         <ZodSchema type={int8WithMinMaxExclusive} />,
-        "z.number().int().gt(2).lt(20)"
+        "z.number().int().gt(2).lt(20)",
       );
     });
 
@@ -99,19 +99,19 @@ describe("scalars", () => {
 
       expectRender(
         <ZodSchema type={int8Prop.type} />,
-        "z.number().int().gte(-128).lte(127)"
+        "z.number().int().gte(-128).lte(127)",
       );
       expectRender(
         <ZodSchema type={int16Prop.type} />,
-        "z.number().int().gte(-32768).lte(32767)"
+        "z.number().int().gte(-32768).lte(32767)",
       );
       expectRender(
         <ZodSchema type={int32Prop.type} />,
-        "z.number().int().gte(-2147483648).lte(2147483647)"
+        "z.number().int().gte(-2147483648).lte(2147483647)",
       );
       expectRender(
         <ZodSchema type={int64Prop.type} />,
-        "z.bigint().gte(-9223372036854775808n).lte(9223372036854775807n)"
+        "z.bigint().gte(-9223372036854775808n).lte(9223372036854775807n)",
       );
     });
 
@@ -130,23 +130,23 @@ describe("scalars", () => {
 
       expectRender(
         <ZodSchema type={uint8Prop.type} />,
-        "z.number().int().nonnegative().lte(255)"
+        "z.number().int().nonnegative().lte(255)",
       );
       expectRender(
         <ZodSchema type={uint16Prop.type} />,
-        "z.number().int().nonnegative().lte(65535)"
+        "z.number().int().nonnegative().lte(65535)",
       );
       expectRender(
         <ZodSchema type={uint32Prop.type} />,
-        "z.number().int().nonnegative().lte(4294967295)"
+        "z.number().int().nonnegative().lte(4294967295)",
       );
       expectRender(
         <ZodSchema type={uint64Prop.type} />,
-        "z.bigint().nonnegative().lte(18446744073709551615)"
+        "z.bigint().nonnegative().lte(18446744073709551615)",
       );
       expectRender(
         <ZodSchema type={safeintProp.type} />,
-        "z.number().int().safe()"
+        "z.number().int().safe()",
       );
     });
 
@@ -162,7 +162,7 @@ describe("scalars", () => {
 
       expectRender(
         <ZodSchema type={float32Prop.type} />,
-        "z.number().gte(-3.4028235e+38).lte(3.4028235e+38)"
+        "z.number().gte(-3.4028235e+38).lte(3.4028235e+38)",
       );
       expectRender(<ZodSchema type={float64Prop.type} />, "z.number()");
       expectRender(<ZodSchema type={floatProp.type} />, "z.number()");
@@ -215,7 +215,7 @@ describe("scalars", () => {
     expectRender(<ZodSchema type={utcDateTimeProp.type} />, "z.coerce.date()");
     expectRender(
       <ZodSchema type={offsetDateTimeProp.type} />,
-      "z.coerce.date()"
+      "z.coerce.date()",
     );
   });
 
@@ -256,16 +256,16 @@ describe("scalars", () => {
 
     expectRender(
       <ZodSchema type={int32Date} />,
-      "z.number().int().gte(-2147483648).lte(2147483647)"
+      "z.number().int().gte(-2147483648).lte(2147483647)",
     );
     expectRender(
       <ZodSchema type={int64Date} />,
-      "z.bigint().gte(-9223372036854775808n).lte(9223372036854775807n)"
+      "z.bigint().gte(-9223372036854775808n).lte(9223372036854775807n)",
     );
     expectRender(<ZodSchema type={rfc3339DateUtc} />, "z.string().datetime()");
     expectRender(
       <ZodSchema type={rfc3339DateOffset} />,
-      "z.string().datetime()"
+      "z.string().datetime()",
     );
     expectRender(<ZodSchema type={rfc7231DateUtc} />, "z.string()");
     expectRender(<ZodSchema type={rfc7231DateOffset} />, "z.string()");
@@ -295,11 +295,11 @@ describe("scalars", () => {
     expectRender(<ZodSchema type={isoDuration} />, "z.string().duration()");
     expectRender(
       <ZodSchema type={secondsDuration} />,
-      "z.number().int().gte(-2147483648).lte(2147483647)"
+      "z.number().int().gte(-2147483648).lte(2147483647)",
     );
     expectRender(
       <ZodSchema type={int64SecondsDuration} />,
-      "z.bigint().gte(-9223372036854775808n).lte(9223372036854775807n)"
+      "z.bigint().gte(-9223372036854775808n).lte(9223372036854775807n)",
     );
   });
 
@@ -321,7 +321,7 @@ describe("scalars", () => {
 
     expectRender(
       <ZodSchema type={unknownScalar} />,
-      'z.any().describe("An unknown scalar")'
+      'z.any().describe("An unknown scalar")',
     );
   });
 });
