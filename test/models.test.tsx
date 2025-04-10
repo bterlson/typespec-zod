@@ -143,6 +143,30 @@ it("works with referencing other schema declarations in members", async () => {
   );
 });
 
+it("allows name to be a getter", async () => {
+  const runner = await createTestRunner();
+  const { Test } = await runner.compile(`
+    @test model Test {
+      @maxLength(2)
+      prop: string
+    }
+  `);
+
+  function getName() {
+    return "hello" + "there";
+  }
+  expectRender(
+    <StatementList>
+      <ZodSchemaDeclaration type={Test} name={getName()} />
+    </StatementList>,
+    d`
+      const hellothere = z.object({
+        prop: z.string().max(2),
+      });
+    `
+  );
+});
+
 it("renders model and property docs", async () => {
   const runner = await createTestRunner();
   const { Test } = await runner.compile(`

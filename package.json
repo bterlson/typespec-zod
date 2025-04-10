@@ -17,7 +17,9 @@
     "watch-tsc": "tsc -p tsconfig.build.json --watch",
     "watch": "concurrently --kill-others \"npm run watch-tsc\" \"npm run watch-src\"",
     "test": "vitest run",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+
   },
   "author": "Brian Terlson",
   "repository": "github:bterlson/typespec-zod",

@@ -5,8 +5,8 @@ import { typeBuilder } from "../chain-builders/type.jsx";
 import { refkeySym, shouldReference } from "../utils.jsx";
 
 export interface ZodSchemaProps {
-  type: Type;
-  nested?: boolean;
+  readonly type: Type;
+  readonly nested?: boolean;
 }
 
 /**
