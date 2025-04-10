@@ -13,7 +13,7 @@
     "jsx": "preserve",
     "jsxImportSource": "@alloy-js/core",
     "emitDeclarationOnly": true,
-    "outDir": "dist/src",
+    "outDir": "dist",
     "incremental": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
