@@ -19,7 +19,6 @@
     "test": "vitest run",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
-
   },
   "author": "Brian Terlson",
   "repository": "github:bterlson/typespec-zod",

@@ -163,7 +163,7 @@ it("allows name to be a getter", async () => {
       const hellothere = z.object({
         prop: z.string().max(2),
       });
-    `
+    `,
   );
 });
 
