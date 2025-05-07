@@ -1,7 +1,7 @@
 import { ComponentContext, createContext, useContext } from "@alloy-js/core";
 import { Children, ComponentDefinition } from "@alloy-js/core/jsx-runtime";
 import { Program, Scalar, Type } from "@typespec/compiler";
-import { $ } from "@typespec/compiler/experimental/typekit";
+import { $ } from "@typespec/compiler/typekit";
 import { isBuiltIn } from "../utils.jsx";
 
 export type ZodCustomTypeComponent = ComponentDefinition<{

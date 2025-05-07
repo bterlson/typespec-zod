@@ -1,6 +1,6 @@
 {
   "name": "typespec-zod",
-  "version": "1.0.0-preview.9",
+  "version": "1.0.0-preview.10",
   "type": "module",
   "exports": {
     ".": {
@@ -28,13 +28,13 @@
   "license": "ISC",
   "description": "A TypeSpec emitter and library for creating Zod schemas from TypeSpec types.",
   "peerDependencies": {
-    "@alloy-js/core": "^0.11.0",
-    "@alloy-js/typescript": "^0.11.0",
-    "@typespec/compiler": "^1.0.0-rc.1",
-    "@typespec/emitter-framework": "^0.6.0"
+    "@alloy-js/core": "^0.15.0",
+    "@alloy-js/typescript": "^0.15.0",
+    "@typespec/compiler": "^1.0.0",
+    "@typespec/emitter-framework": "^0.7.0"
   },
   "devDependencies": {
-    "@alloy-js/cli": "^0.11.0",
+    "@alloy-js/cli": "^0.15.0",
     "@alloy-js/rollup-plugin": "^0.1.0",
     "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.8.2",

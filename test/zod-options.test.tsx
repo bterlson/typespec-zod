@@ -1,7 +1,7 @@
 import { StatementList } from "@alloy-js/core";
 import { d } from "@alloy-js/core/testing";
 import { Model } from "@typespec/compiler";
-import { $ } from "@typespec/compiler/experimental/typekit";
+import { $ } from "@typespec/compiler/typekit";
 import { it } from "vitest";
 import { ZodOptions } from "../src/components/ZodOptions.jsx";
 import { ZodTypeEmitOptions } from "../src/context/zod-options.js";

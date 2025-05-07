@@ -1,7 +1,7 @@
 import { Children } from "@alloy-js/core/jsx-runtime";
 import { FunctionCallExpression } from "@alloy-js/typescript";
 import { Program, Type } from "@typespec/compiler";
-import { $ } from "@typespec/compiler/experimental/typekit";
+import { $ } from "@typespec/compiler/typekit";
 import { ZodOptionsContext } from "./context/zod-options.js";
 
 export const refkeySym = Symbol.for("typespec-zod.refkey");
