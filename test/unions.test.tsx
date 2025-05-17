@@ -110,4 +110,4 @@ it("works with non-discriminated unions", async () => {
   );
 });
 
-it("works with the unknown variant (by not emitting it)", async () => {});
+it("works with the unknown variant (by not emitting it)");

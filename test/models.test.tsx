@@ -196,8 +196,10 @@ it("renders model and property docs", async () => {
     runner.program,
     <ZodSchema type={Test} />,
     d`
-      z.object({
-          prop: z.string()
+      z
+        .object({
+          prop: z
+            .string()
             .max(2)
             .describe("This is a property. It is also interesting."),
         })

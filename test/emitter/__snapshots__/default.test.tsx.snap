@@ -10,9 +10,8 @@ export const petBase = z.object({
 
 export const refHttp = z.object({
   foo: z.object({
-      statusCode: z.literal(200).describe("The status code."),
-    })
-    .describe("The request has succeeded."),
+    statusCode: z.literal(200),
+  }),
 });"
 `;
 
@@ -57,7 +56,7 @@ export const dog = petBase.merge(z.object({
 }));
 
 export const cat = petBase.merge(z.object({
-  belongingsShredded: z.bigint().nonnegative().lte(18446744073709551615),
+  belongingsShredded: z.bigint().nonnegative().lte(18446744073709551615n),
 }));
 
 export const pet = z.discriminatedUnion(

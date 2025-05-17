@@ -172,7 +172,7 @@ describe("scalars", () => {
       expectRender(
         runner.program,
         <ZodSchema type={uint64Prop.type} />,
-        "z.bigint().nonnegative().lte(18446744073709551615)",
+        "z.bigint().nonnegative().lte(18446744073709551615n)",
       );
       expectRender(
         runner.program,

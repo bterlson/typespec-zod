@@ -15,7 +15,6 @@ interface ZodSchemaDeclarationProps
  */
 export function ZodSchemaDeclaration(props: ZodSchemaDeclarationProps) {
   const internalRk = ay.refkey(props.type, refkeySym);
-
   const [zodSchemaProps, varDeclProps] = ay.splitProps(props, [
     "type",
     "nested",
@@ -34,7 +33,12 @@ export function ZodSchemaDeclaration(props: ZodSchemaDeclarationProps) {
   });
 
   return (
-    <ZodCustomTypeComponent type={props.type} declare>
+    <ZodCustomTypeComponent
+      declare
+      type={props.type}
+      Declaration={ts.VarDeclaration}
+      declarationProps={newProps}
+    >
       <ts.VarDeclaration {...newProps}>
         <ZodSchema {...zodSchemaProps} />
       </ts.VarDeclaration>

@@ -1,5 +1,5 @@
 import { Children } from "@alloy-js/core/jsx-runtime";
-import { MemberChainExpression } from "@alloy-js/typescript";
+import { MemberExpression } from "@alloy-js/typescript";
 import { zod } from "../external-packages/zod.js";
 
 export interface ZodExpressionSimpleProps {
@@ -17,9 +17,9 @@ export interface ZodExpression {
 
 export function ZodExpression(props: ZodExpression) {
   return (
-    <MemberChainExpression>
-      <>{zod.z}</>
+    <MemberExpression>
+      <MemberExpression.Part refkey={zod.z} />
       {props.children}
-    </MemberChainExpression>
+    </MemberExpression>
   );
 }
