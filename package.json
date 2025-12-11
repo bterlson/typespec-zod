@@ -28,13 +28,13 @@
   "license": "ISC",
   "description": "A TypeSpec emitter and library for creating Zod schemas from TypeSpec types.",
   "peerDependencies": {
-    "@alloy-js/core": ">=0.17.0",
-    "@alloy-js/typescript": ">=0.17.0",
-    "@typespec/compiler": "^1.1.0",
-    "@typespec/emitter-framework": ">=0.8.0"
+    "@alloy-js/core": "^0.22.0",
+    "@alloy-js/typescript": "^0.22.0",
+    "@typespec/compiler": "^1.7.0",
+    "@typespec/emitter-framework": ">=0.14.0"
   },
   "devDependencies": {
-    "@alloy-js/cli": ">=0.17.0",
+    "@alloy-js/cli": "^0.22.0",
     "@alloy-js/rollup-plugin": "^0.1.0",
     "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.8.2",
@@ -45,5 +45,8 @@
     "readme.md",
     "LICENSE",
     "package.json"
-  ]
+  ],
+  "dependencies": {
+    "@typespec/http": "^1.7.0"
+  }
 }
