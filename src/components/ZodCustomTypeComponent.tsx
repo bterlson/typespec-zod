@@ -1,4 +1,4 @@
-import { Children, ComponentDefinition } from "@alloy-js/core/jsx-runtime";
+import { Children, ComponentDefinition } from "@alloy-js/core";
 import { ModelProperty, Type } from "@typespec/compiler";
 import { useTsp } from "@typespec/emitter-framework";
 import {
@@ -42,8 +42,9 @@ export interface ZodCustomTypeComponentDeclarationProps<
    */
   Declaration: U;
 }
-export interface ZodCustomTypeComponentReferenceProps<T extends Type>
-  extends ZodCustomTypeComponentCommonProps<T> {
+export interface ZodCustomTypeComponentReferenceProps<
+  T extends Type,
+> extends ZodCustomTypeComponentCommonProps<T> {
   /**
    * Pass when rendering a reference to the provided type or type kind.
    */
