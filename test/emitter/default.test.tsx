@@ -74,7 +74,7 @@ it("handles the readme sample", async () => {
 
   const { text } = await runner.program.host.readFile("typespec-zod/models.ts");
 
-  expect(text.trim().trim()).toMatchSnapshot();
+  expect(text.trim()).toMatchSnapshot();
 });
 
 it("doesn't emit things from built-in libraries", async () => {
