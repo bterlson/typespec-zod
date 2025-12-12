@@ -27,7 +27,7 @@ export function expectRender(
     </Output>
   );
 
-  const output = render(template);
+  const output = render(template, { insertFinalNewLine: false });
   expect(
     (output.contents[0] as ContentOutputFile).contents
       .split(/\n/)
@@ -43,7 +43,7 @@ export function expectRenderPure(children: Children, expected: string) {
     </AlloyOutput>
   );
 
-  const output = render(template);
+  const output = render(template, { insertFinalNewLine: false });
   expect(
     (output.contents[0] as ContentOutputFile).contents
       .split(/\n/)

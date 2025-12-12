@@ -110,7 +110,7 @@ export function expectOptionRender(
       </Output>
     );
   }
-  const output = render(template);
+  const output = render(template, { insertFinalNewLine: false });
   let contents = (output.contents[0] as ContentOutputFile).contents;
   if (contents.startsWith("import")) {
     contents = contents.split(/\n/).slice(2).join("\n");
