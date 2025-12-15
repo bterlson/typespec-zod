@@ -1,4 +1,8 @@
-import { Output as AlloyOutput, render } from "@alloy-js/core";
+import {
+  Output as AlloyOutput,
+  ContentOutputFile,
+  render,
+} from "@alloy-js/core";
 import { Children } from "@alloy-js/core/jsx-runtime";
 import { SourceFile } from "@alloy-js/typescript";
 import { Program } from "@typespec/compiler";
@@ -23,9 +27,12 @@ export function expectRender(
     </Output>
   );
 
-  const output = render(template);
+  const output = render(template, { insertFinalNewLine: false });
   expect(
-    (output.contents[0].contents as string).split(/\n/).slice(2).join("\n"),
+    (output.contents[0] as ContentOutputFile).contents
+      .split(/\n/)
+      .slice(2)
+      .join("\n"),
   ).toBe(expected);
 }
 
@@ -36,9 +43,12 @@ export function expectRenderPure(children: Children, expected: string) {
     </AlloyOutput>
   );
 
-  const output = render(template);
+  const output = render(template, { insertFinalNewLine: false });
   expect(
-    (output.contents[0].contents as string).split(/\n/).slice(2).join("\n"),
+    (output.contents[0] as ContentOutputFile).contents
+      .split(/\n/)
+      .slice(2)
+      .join("\n"),
   ).toBe(expected);
 }
 

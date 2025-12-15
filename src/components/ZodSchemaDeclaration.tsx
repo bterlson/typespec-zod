@@ -5,7 +5,8 @@ import { ZodCustomTypeComponent } from "./ZodCustomTypeComponent.jsx";
 import { ZodSchema, ZodSchemaProps } from "./ZodSchema.jsx";
 
 interface ZodSchemaDeclarationProps
-  extends Omit<ts.VarDeclarationProps, "type" | "name" | "value" | "kind">,
+  extends
+    Omit<ts.VarDeclarationProps, "type" | "name" | "value" | "kind">,
     ZodSchemaProps {
   readonly name?: string;
 }

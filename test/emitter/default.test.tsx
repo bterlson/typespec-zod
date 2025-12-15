@@ -23,7 +23,7 @@ it("emits all declarations", async () => {
 
   const { text } = await runner.program.host.readFile("typespec-zod/models.ts");
 
-  expect(text).toMatchSnapshot();
+  expect(text.trim()).toMatchSnapshot();
 });
 
 it("handles references by doing a topological sort", async () => {
@@ -43,7 +43,7 @@ it("handles references by doing a topological sort", async () => {
 
   const { text } = await runner.program.host.readFile("typespec-zod/models.ts");
 
-  expect(text).toMatchSnapshot();
+  expect(text.trim()).toMatchSnapshot();
 });
 
 it("handles the readme sample", async () => {
@@ -74,7 +74,7 @@ it("handles the readme sample", async () => {
 
   const { text } = await runner.program.host.readFile("typespec-zod/models.ts");
 
-  expect(text).toMatchSnapshot();
+  expect(text.trim()).toMatchSnapshot();
 });
 
 it("doesn't emit things from built-in libraries", async () => {
@@ -94,5 +94,5 @@ it("doesn't emit things from built-in libraries", async () => {
 
   const { text } = await runner.program.host.readFile("typespec-zod/models.ts");
 
-  expect(text).toMatchSnapshot();
+  expect(text.trim()).toMatchSnapshot();
 });

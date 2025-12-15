@@ -1,4 +1,4 @@
-import { For, render, StatementList } from "@alloy-js/core";
+import { ContentOutputFile, For, render, StatementList } from "@alloy-js/core";
 import { d } from "@alloy-js/core/testing";
 import { MemberExpression, SourceFile } from "@alloy-js/typescript";
 import { Model, Program, Scalar, Type } from "@typespec/compiler";
@@ -110,8 +110,8 @@ export function expectOptionRender(
       </Output>
     );
   }
-  const output = render(template);
-  let contents = output.contents[0].contents as string;
+  const output = render(template, { insertFinalNewLine: false });
+  let contents = (output.contents[0] as ContentOutputFile).contents;
   if (contents.startsWith("import")) {
     contents = contents.split(/\n/).slice(2).join("\n");
   }

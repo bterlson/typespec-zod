@@ -1,5 +1,10 @@
-import { ComponentContext, createContext, useContext } from "@alloy-js/core";
-import { Children, ComponentDefinition } from "@alloy-js/core/jsx-runtime";
+import {
+  Children,
+  ComponentContext,
+  ComponentDefinition,
+  createContext,
+  useContext,
+} from "@alloy-js/core";
 import { ObjectPropertyProps, VarDeclarationProps } from "@alloy-js/typescript";
 import {
   Enum,
@@ -128,8 +133,9 @@ export type CustomTypeToProps<TCustomType extends Type> =
           ? VarDeclarationProps
           : VarDeclarationProps | ObjectPropertyProps;
 
-export interface ZodCustomEmitReferenceProps<TCustomType extends Type>
-  extends ZodCustomEmitPropsBase<TCustomType> {
+export interface ZodCustomEmitReferenceProps<
+  TCustomType extends Type,
+> extends ZodCustomEmitPropsBase<TCustomType> {
   /**
    * The member this type is referenced from, if any. This member may contain
    * additional metadata that should be represented in the emitted output.
@@ -143,8 +149,9 @@ export interface ZodCustomEmitReferenceProps<TCustomType extends Type>
   memberParts: () => Children;
 }
 
-export interface ZodCustomEmitDeclareProps<TCustomType extends Type>
-  extends ZodCustomEmitPropsBase<TCustomType> {
+export interface ZodCustomEmitDeclareProps<
+  TCustomType extends Type,
+> extends ZodCustomEmitPropsBase<TCustomType> {
   Declaration: ComponentDefinition<CustomTypeToProps<TCustomType>>;
   declarationProps: CustomTypeToProps<TCustomType>;
 }
