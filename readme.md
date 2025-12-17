@@ -58,15 +58,15 @@ export const petBase = z.object({
   name: z.string().max(20),
 });
 
-export const dog = z.petBase.merge(
-  z.object({
-    walksPerDay: z.number().int().safe(),
-  }),
-);
-
 export const cat = z.petBase.merge(
   z.object({
     belongingsShredded: z.bigint().nonnegative().lte(18446744073709551615),
+  }),
+);
+
+export const dog = z.petBase.merge(
+  z.object({
+    walksPerDay: z.number().int().safe(),
   }),
 );
 
