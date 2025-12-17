@@ -3,6 +3,7 @@ import { Children } from "@alloy-js/core/jsx-runtime";
 import { FunctionCallExpression, MemberExpression } from "@alloy-js/typescript";
 import { Program, Type } from "@typespec/compiler";
 import { $ } from "@typespec/compiler/typekit";
+import { SCCSet } from "@typespec/emitter-framework";
 import {
   getEmitOptionsForType,
   ZodOptionsContext,
@@ -92,37 +93,13 @@ export function isBuiltIn(program: Program, type: Type) {
   return tln === globalNs.namespaces.get("TypeSpec");
 }
 
-/**
- * This API takes an array of types and returns those types in an array of
- * cyclesets. A cycleset is a group of types which together form a circular
- * reference. The array of cyclesets is ordered such that no type reachable from
- * a given cycleset is reachable from any cycleset earlier in the array. In
- * other words, if you emit the cyclesets in order there will be no forward
- * references.
- */
-export function createCycleSets(types: Type[]): Type[][] {
-  const inputTypes = new Set(types);
+interface TypeCollector {
+  collectType: (type: Type) => void;
+  get types(): Type[];
+}
 
-  let index = 0; // Unique index assigned to each node
-
-  const stack: Type[] = [];
-  const onStack = new Set<Type>();
-
-  /* Map of type to the type's index */
-  const indices = new Map<Type, number>();
-
-  /* Map to store the smallest type index reachable from the given type */
-  const lowlink = new Map<Type, number>();
-
-  const sccs: Type[][] = [];
-
-  for (const node of types) {
-    if (!indices.has(node)) {
-      strongConnect(node);
-    }
-  }
-
-  return sccs;
+export function newTopologicalTypeCollector(program: Program): TypeCollector {
+  const types = new SCCSet<Type>(referencedTypes);
 
   function referencedTypes(type: Type): Type[] {
     switch (type.kind) {
@@ -131,24 +108,30 @@ export function createCycleSets(types: Type[]): Type[][] {
           ...(type.baseModel ? [type.baseModel] : []),
           ...(type.indexer ? [type.indexer.key, type.indexer.value] : []),
           ...[...type.properties.values()].map((p) => p.type),
-        ];
+        ].filter((t) => shouldReference(program, t));
 
       case "Union":
-        return [...type.variants.values()].map((v) =>
-          v.kind === "UnionVariant" ? v.type : v,
-        );
+        return [...type.variants.values()]
+          .map((v) => (v.kind === "UnionVariant" ? v.type : v))
+          .filter((t) => shouldReference(program, t));
       case "UnionVariant":
-        return [type.type];
+        return shouldReference(program, type.type) ? [type.type] : [];
       case "Interface":
-        return [...type.operations.values()];
+        return [...type.operations.values()].filter((t) =>
+          shouldReference(program, t),
+        );
       case "Operation":
-        return [type.parameters, type.returnType];
+        return [type.parameters, type.returnType].filter((t) =>
+          shouldReference(program, t),
+        );
       case "Enum":
         return [];
       case "Scalar":
-        return type.baseScalar ? [type.baseScalar] : [];
+        return type.baseScalar && shouldReference(program, type.baseScalar)
+          ? [type.baseScalar]
+          : [];
       case "Tuple":
-        return type.values;
+        return type.values.filter((t) => shouldReference(program, t));
       case "Namespace":
         return [
           ...type.operations.values(),
@@ -157,50 +140,22 @@ export function createCycleSets(types: Type[]): Type[][] {
           ...type.enums.values(),
           ...type.interfaces.values(),
           ...type.namespaces.values(),
-        ];
+        ].filter((t) => shouldReference(program, t));
       default:
         return [];
     }
   }
 
-  // The main recursive function that implements Tarjan's algorithm.
-  function strongConnect(v: Type): void {
-    // Set the depth index for v to the smallest unused index
-    indices.set(v, index);
-    lowlink.set(v, index);
-    index++;
-    stack.push(v);
-    onStack.add(v);
-
-    // Consider successors of v
-    for (const w of referencedTypes(v)) {
-      if (!indices.has(w)) {
-        // Successor w has not yet been visited; recurse on it.
-        strongConnect(w);
-        // After recursion, update lowlink[v]
-        lowlink.set(v, Math.min(lowlink.get(v)!, lowlink.get(w)!));
-      } else if (onStack.has(w)) {
-        // If w is in the current SCC (i.e. on the stack), update lowlink[v]
-        lowlink.set(v, Math.min(lowlink.get(v)!, indices.get(w)!));
+  return {
+    collectType(type: Type) {
+      if (shouldReference(program, type)) {
+        types.add(type);
       }
-    }
-
-    // If v is a root node, pop the stack and generate an SCC.
-    if (lowlink.get(v) === indices.get(v)) {
-      const component: Type[] = [];
-      let w: Type;
-      do {
-        w = stack.pop()!;
-        onStack.delete(w);
-        component.push(w);
-      } while (w !== v);
-
-      const scc = component.filter((v) => inputTypes.has(v));
-      if (scc.length > 0) {
-        sccs.push(scc);
-      }
-    }
-  }
+    },
+    get types() {
+      return [...types.items];
+    },
+  };
 }
 
 export function call(target: string, ...args: Children[]) {
