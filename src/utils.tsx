@@ -153,7 +153,7 @@ export function newTopologicalTypeCollector(program: Program): TypeCollector {
       }
     },
     get types() {
-      return [...types.items];
+      return types.items;
     },
   };
 }
