@@ -5,16 +5,15 @@ import {
   ListenerFlow,
   navigateProgram,
   Program,
-  Type,
 } from "@typespec/compiler";
 import { $ } from "@typespec/compiler/typekit";
 import { Output, writeOutput } from "@typespec/emitter-framework";
 import { ZodSchemaDeclaration } from "./components/ZodSchemaDeclaration.jsx";
 import { zod } from "./external-packages/zod.js";
-import { createCycleSets, shouldReference } from "./utils.jsx";
+import { newTopologicalTypeCollector } from "./utils.jsx";
 
 export async function $onEmit(context: EmitContext) {
-  const types = createCycleSets(getAllDataTypes(context.program)).flat(1);
+  const types = getAllDataTypes(context.program);
   const tsNamePolicy = ts.createTSNamePolicy();
 
   writeOutput(
@@ -45,17 +44,12 @@ export async function $onEmit(context: EmitContext) {
 }
 
 /**
- * Collects all the models defined in the spec
- * @returns A collection of all defined models in the spec
+ * Collects all the models defined in the spec and returns them in topologically sorted order.
+ * Types are ordered such that dependencies appear before the types that depend on them.
+ * @returns A topologically sorted collection of all defined models in the spec
  */
 function getAllDataTypes(program: Program) {
-  const types: Type[] = [];
-  function collectType(type: Type) {
-    if (shouldReference(program, type)) {
-      types.push(type);
-    }
-  }
-
+  const collector = newTopologicalTypeCollector(program);
   const globalNs = program.getGlobalNamespaceType();
 
   navigateProgram(
@@ -66,13 +60,13 @@ function getAllDataTypes(program: Program) {
           return ListenerFlow.NoRecursion;
         }
       },
-      model: collectType,
-      enum: collectType,
-      union: collectType,
-      scalar: collectType,
+      model: collector.collectType,
+      enum: collector.collectType,
+      union: collector.collectType,
+      scalar: collector.collectType,
     },
     { includeTemplateDeclaration: false },
   );
 
-  return types;
+  return collector.types;
 }

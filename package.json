@@ -31,7 +31,7 @@
     "@alloy-js/core": "^0.22.0",
     "@alloy-js/typescript": "^0.22.0",
     "@typespec/compiler": "^1.7.0",
-    "@typespec/emitter-framework": "^0.15.0-dev.1"
+    "@typespec/emitter-framework": "^0.15.0-dev.2"
   },
   "devDependencies": {
     "@alloy-js/cli": "^0.22.0",
