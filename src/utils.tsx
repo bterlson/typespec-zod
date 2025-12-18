@@ -108,30 +108,24 @@ export function newTopologicalTypeCollector(program: Program): TypeCollector {
           ...(type.baseModel ? [type.baseModel] : []),
           ...(type.indexer ? [type.indexer.key, type.indexer.value] : []),
           ...[...type.properties.values()].map((p) => p.type),
-        ].filter((t) => shouldReference(program, t));
+        ];
 
       case "Union":
-        return [...type.variants.values()]
-          .map((v) => (v.kind === "UnionVariant" ? v.type : v))
-          .filter((t) => shouldReference(program, t));
+        return [...type.variants.values()].map((v) =>
+          v.kind === "UnionVariant" ? v.type : v,
+        );
       case "UnionVariant":
-        return shouldReference(program, type.type) ? [type.type] : [];
+        return [type.type];
       case "Interface":
-        return [...type.operations.values()].filter((t) =>
-          shouldReference(program, t),
-        );
+        return [...type.operations.values()];
       case "Operation":
-        return [type.parameters, type.returnType].filter((t) =>
-          shouldReference(program, t),
-        );
+        return [type.parameters, type.returnType];
       case "Enum":
         return [];
       case "Scalar":
-        return type.baseScalar && shouldReference(program, type.baseScalar)
-          ? [type.baseScalar]
-          : [];
+        return type.baseScalar ? [type.baseScalar] : [];
       case "Tuple":
-        return type.values.filter((t) => shouldReference(program, t));
+        return type.values;
       case "Namespace":
         return [
           ...type.operations.values(),
@@ -140,7 +134,7 @@ export function newTopologicalTypeCollector(program: Program): TypeCollector {
           ...type.enums.values(),
           ...type.interfaces.values(),
           ...type.namespaces.values(),
-        ].filter((t) => shouldReference(program, t));
+        ];
       default:
         return [];
     }
