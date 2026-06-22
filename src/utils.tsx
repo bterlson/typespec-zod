@@ -101,21 +101,49 @@ interface TypeCollector {
 export function newTopologicalTypeCollector(program: Program): TypeCollector {
   const types = new SCCSet<Type>(referencedTypes);
 
+  // Only declarations get ordered. Built-in array/record, anonymous unions, and
+  // tuples render inline, so the real dependency is on the declarations inside
+  // them: descend through those, stopping at the first declaration or built-in leaf.
+  function referenceTargets(t: Type): Type[] {
+    if (shouldReference(program, t)) {
+      return [t];
+    }
+    switch (t.kind) {
+      case "Model":
+        // built-in array/record: the element carries the dependency
+        return t.indexer ? referenceTargets(t.indexer.value) : [t];
+      case "Union":
+        return [...t.variants.values()].flatMap((v) =>
+          referenceTargets(v.kind === "UnionVariant" ? v.type : v),
+        );
+      case "UnionVariant":
+        return referenceTargets(t.type);
+      case "Tuple":
+        return t.values.flatMap(referenceTargets);
+      default:
+        return [t];
+    }
+  }
+
   function referencedTypes(type: Type): Type[] {
     switch (type.kind) {
       case "Model":
         return [
           ...(type.baseModel ? [type.baseModel] : []),
-          ...(type.indexer ? [type.indexer.key, type.indexer.value] : []),
-          ...[...type.properties.values()].map((p) => p.type),
+          ...(type.indexer
+            ? [type.indexer.key, ...referenceTargets(type.indexer.value)]
+            : []),
+          ...[...type.properties.values()].flatMap((p) =>
+            referenceTargets(p.type),
+          ),
         ];
 
       case "Union":
-        return [...type.variants.values()].map((v) =>
-          v.kind === "UnionVariant" ? v.type : v,
+        return [...type.variants.values()].flatMap((v) =>
+          referenceTargets(v.kind === "UnionVariant" ? v.type : v),
         );
       case "UnionVariant":
-        return [type.type];
+        return referenceTargets(type.type);
       case "Interface":
         return [...type.operations.values()];
       case "Operation":
@@ -125,7 +153,7 @@ export function newTopologicalTypeCollector(program: Program): TypeCollector {
       case "Scalar":
         return type.baseScalar ? [type.baseScalar] : [];
       case "Tuple":
-        return type.values;
+        return type.values.flatMap(referenceTargets);
       case "Namespace":
         return [
           ...type.operations.values(),
